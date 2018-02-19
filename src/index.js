@@ -1,1 +1,3 @@
-console.log('probandoooo');
+$(document).ready(function() {
+  $('.modal').modal();
+});
