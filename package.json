@@ -1,0 +1,21 @@
+{
+  "name": "rc_bitacora",
+  "version": "1.0.0",
+  "description": "Es una bitácora en la que se puede agregar mensajes, imágenes, audio, video, ubicaciones y fechas. ",
+  "main": "index.js",
+  "scripts": {
+    "build": "babel src -d public/js"
+  },
+  "keywords": [
+    "bitacora"
+  ],
+  "author": "Rocci Escobar y Manuela Flores",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1"
+  },
+  "dependencies": {
+    "express": "^4.16.2"
+  }
+}
