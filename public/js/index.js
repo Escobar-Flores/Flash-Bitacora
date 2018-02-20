@@ -51,4 +51,31 @@ $(document).ready(function () {
       reader.readAsDataURL(myFile);
     };
   });
+
+  // Funcionalidad Multimedia : 
+
+  var filesMultimedia = $('#filesMultimedia');
+  var buttonMultimedia = $('.button-send-multimedia-js');
+  var prueba = $('.title-multimedia-js');
+  console.log(prueba);
+
+  filesMultimedia.change(function (event) {
+
+    var myFile = event.target.files[0];
+    var typeOfContent = '';
+    if (myFile.type.match('audio.*')) {
+      var reader = new FileReader();
+      reader.onload = function (event) {
+        var titleMultimedia = $('.title-multimedia-js').val();
+        var templateMultimedia = '\n        <div class="row">\n          <div class="col s10 offset-s1 z-depth-2 border">\n            <h2 class="center-align">' + titleMultimedia + '</h2>\n              <audio src="' + event.target.result + '" controls></audio>         \n          </div>\n        </div>';
+
+        buttonMultimedia.on('click', function () {
+
+          console.log('click!!!');
+          posts.append(templateMultimedia);
+        });
+      };
+      reader.readAsDataURL(myFile);
+    }
+  });
 });

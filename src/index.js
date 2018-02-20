@@ -62,4 +62,35 @@ $(document).ready(() => {
       reader.readAsDataURL(myFile);
     };
   });
+
+  // Funcionalidad Multimedia : 
+
+  let filesMultimedia = $('#filesMultimedia');
+  let buttonMultimedia = $('.button-send-multimedia-js');
+  let prueba = $('.title-multimedia-js');
+  console.log(prueba);
+
+  filesMultimedia.change((event) => {
+    
+    let myFile = event.target.files[0];
+    let typeOfContent = '';
+    if (myFile.type.match('audio.*')) {
+      let reader = new FileReader();
+      reader.onload = (event) => {
+        let titleMultimedia = $('.title-multimedia-js').val();
+        let templateMultimedia = `
+        <div class="row">
+          <div class="col s10 offset-s1 z-depth-2 border">
+            <h2 class="center-align">${titleMultimedia}</h2>
+              <audio src="${event.target.result}" controls></audio>         
+          </div>
+        </div>`; 
+        
+        buttonMultimedia.on('click', () => {
+          posts.append(templateMultimedia);
+        });
+      };
+      reader.readAsDataURL(myFile);
+    }
+  });
 });
