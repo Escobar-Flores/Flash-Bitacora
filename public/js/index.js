@@ -56,7 +56,6 @@ $(document).ready(function () {
 
   var filesMultimedia = $('#filesMultimedia');
   var buttonMultimedia = $('.button-send-multimedia-js');
-  var prueba = $('.title-multimedia-js');
 
   filesMultimedia.change(function (event) {
     var myFile = event.target.files[0];
@@ -69,6 +68,9 @@ $(document).ready(function () {
 
         buttonMultimedia.on('click', function () {
           posts.append(templateMultimedia);
+          $('.title-multimedia-js').val('');
+          $('.delete-multimedia-js').val('');
+          templateMultimedia = '';
         });
       };
       reader.readAsDataURL(myFile);
@@ -76,10 +78,13 @@ $(document).ready(function () {
       var _reader = new FileReader();
       _reader.onload = function (event) {
         var titleMultimedia = $('.title-multimedia-js').val();
-        var templateMultimedia = '\n        <div class="row">\n          <div class="col s10 offset-s1 z-depth-2 border">\n            <h2 class="center-align">' + titleMultimedia + '</h2>\n            <div class="flex-center">\n              <video class="video" src="' + event.target.result + '" controls></video>\n            </div>        \n          </div>\n        </div>';
+        var templateMultimedia = '\n        <div class="row">\n          <div class="col s10 offset-s1 z-depth-2 border">\n          <div class="row">\n          <div class="col s-12">\n            <h2 class="center-align">' + titleMultimedia + '</h2>\n            </div> \n            </div> \n            <div class="row flex-center">\n            <div class="col s-12">\n              <video class="video responsive-video" src="' + event.target.result + '" controls></video>\n              </div>\n            </div>        \n          </div>\n        </div>';
 
         buttonMultimedia.on('click', function () {
           posts.append(templateMultimedia);
+          $('.title-multimedia-js').val('');
+          $('.delete-multimedia-js').val('');
+          templateMultimedia = '';
         });
       };
       _reader.readAsDataURL(myFile);
