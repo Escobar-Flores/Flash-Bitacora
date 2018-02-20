@@ -15,7 +15,7 @@ $(document).ready(function () {
     var tempTitle = titleMessage.val();
     var tempMessage = message.val();
 
-    if (tempTitle.length <= titleCharacters && tempMessage.length <= messageCharacters) {
+    if (tempTitle.length <= titleCharacters && tempMessage.length <= messageCharacters && tempTitle !== '' && messageCharacters !== '') {
       var template = '<div class="row">\n      <div class="col s10  offset-s1 z-depth-2 border ">\n      <h2 class="center-align">' + tempTitle + '</h2>\n      <p class="center-align">' + tempMessage + '</p>\n      </div>\n    </div>';
       posts.append(template);
       titleMessage.val('');
@@ -100,4 +100,38 @@ $(document).ready(function () {
         break;
     }
   };
+
+  // Funcionalidad Multimedia : 
+
+  var filesMultimedia = $('#filesMultimedia');
+  var buttonMultimedia = $('.button-send-multimedia-js');
+  var prueba = $('.title-multimedia-js');
+
+  filesMultimedia.change(function (event) {
+    var myFile = event.target.files[0];
+    var typeOfContent = '';
+    if (myFile.type.match('audio.*')) {
+      var reader = new FileReader();
+      reader.onload = function (event) {
+        var titleMultimedia = $('.title-multimedia-js').val();
+        var templateMultimedia = '\n        <div class="row">\n          <div class="col s10 offset-s1 z-depth-2 border">\n            <h2 class="center-align">' + titleMultimedia + '</h2>\n            <div class="flex-center">\n              <audio src="' + event.target.result + '" controls></audio> \n              </div>        \n          </div>\n        </div>';
+
+        buttonMultimedia.on('click', function () {
+          posts.append(templateMultimedia);
+        });
+      };
+      reader.readAsDataURL(myFile);
+    } else if (myFile.type.match('video.*')) {
+      var _reader = new FileReader();
+      _reader.onload = function (event) {
+        var titleMultimedia = $('.title-multimedia-js').val();
+        var templateMultimedia = '\n        <div class="row">\n          <div class="col s10 offset-s1 z-depth-2 border">\n            <h2 class="center-align">' + titleMultimedia + '</h2>\n            <div class="flex-center">\n            <video class="video" src="' + event.target.result + '" controls></video>\n              </div>        \n          </div>\n        </div>';
+
+        buttonMultimedia.on('click', function () {
+          posts.append(templateMultimedia);
+        });
+      };
+      _reader.readAsDataURL(myFile);
+    }
+  });
 });

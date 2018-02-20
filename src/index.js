@@ -13,7 +13,7 @@ $(document).ready(() => {
     let tempTitle = titleMessage.val();
     let tempMessage = message.val();
 
-    if (tempTitle.length <= titleCharacters && tempMessage.length <= messageCharacters) {
+    if (tempTitle.length <= titleCharacters && tempMessage.length <= messageCharacters && tempTitle !== '' && messageCharacters !== '') {
       let template = `<div class="row">
       <div class="col s10  offset-s1 z-depth-2 border ">
       <h2 class="center-align">${tempTitle}</h2>
@@ -120,4 +120,54 @@ $(document).ready(() => {
       break;
     }
   };  
+  
+  // Funcionalidad Multimedia : 
+
+  let filesMultimedia = $('#filesMultimedia');
+  let buttonMultimedia = $('.button-send-multimedia-js');
+  let prueba = $('.title-multimedia-js');
+
+  filesMultimedia.change((event) => {
+    let myFile = event.target.files[0];
+    let typeOfContent = '';
+    if (myFile.type.match('audio.*')) {
+      let reader = new FileReader();
+      reader.onload = (event) => {
+        let titleMultimedia = $('.title-multimedia-js').val();
+        let templateMultimedia = `
+        <div class="row">
+          <div class="col s10 offset-s1 z-depth-2 border">
+            <h2 class="center-align">${titleMultimedia}</h2>
+            <div class="flex-center">
+              <audio src="${event.target.result}" controls></audio> 
+              </div>        
+          </div>
+        </div>`; 
+        
+        buttonMultimedia.on('click', () => {
+          posts.append(templateMultimedia);
+        });
+      };
+      reader.readAsDataURL(myFile);
+    } else if (myFile.type.match('video.*')) {
+      let reader = new FileReader();
+      reader.onload = (event) => {
+        let titleMultimedia = $('.title-multimedia-js').val();
+        let templateMultimedia = `
+        <div class="row">
+          <div class="col s10 offset-s1 z-depth-2 border">
+            <h2 class="center-align">${titleMultimedia}</h2>
+            <div class="flex-center">
+            <video class="video" src="${event.target.result}" controls></video>
+              </div>        
+          </div>
+        </div>`; 
+        
+        buttonMultimedia.on('click', () => {
+          posts.append(templateMultimedia);
+        });
+      };
+      reader.readAsDataURL(myFile);
+    }
+  });
 });
