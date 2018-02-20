@@ -8,6 +8,7 @@ $(document).ready(() => {
   let sendButton = $('.button-send-js');
   const titleCharacters = 10;
   const messageCharacters = 120;
+
   sendButton.on('click', (event) => {
     let tempTitle = titleMessage.val();
     let tempMessage = message.val();
@@ -15,7 +16,7 @@ $(document).ready(() => {
     if (tempTitle.length <= titleCharacters && tempMessage.length <= messageCharacters) {
       let template = `<div class="row">
       <div class="col s10  offset-s1 z-depth-2 border ">
-      <h1 class="center-align">${tempTitle}</h1>
+      <h2 class="center-align">${tempTitle}</h2>
       <p class="center-align">${tempMessage}</p>
       </div>
     </div>`;
@@ -25,26 +26,40 @@ $(document).ready(() => {
     }
   });
 
-  // Funcionalidad cargar imagen:
-  let titleImg = $('.title-img-js');
+  // Funcionalidad cargar imagen:  
   let sendButtonImg = $('.button-send-img-js');
 
-  function handleFileSelect(evt) {
-    console.log('hiciste change');
+  $('#filesImg').change((event) => {
+    let files = event.target.files; // FileList object
+    let myFile = files[0];
     
-    // var files = evt.target.files; // FileList object
+    if (!myFile.type.match('image.*')) {
+      alert('No es una imagen, seleccione una imagen');
+      console.log('no es imagen');    
+    } else {
+      let reader = new FileReader();
 
-    // // files is a FileList of File objects. List some properties.
-    // var output = [];
-    // for (var i = 0, f; f = files[i]; i++) {
-    //   output.push('<li><strong>', escape(f.name), '</strong> (', f.type || 'n/a', ') - ',
-    //     f.size, ' bytes, last modified: ',
-    //     f.lastModifiedDate.toLocaleDateString(), '</li>');
-    // }
-    // document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
-  }
+      reader.onload = (event) => {
+        let titleImg = $('.title-img-js').val();
+        let templateImg = `
+        <div class="row">
+          <div class="col s10 offset-s1 z-depth-2 border">
+            <h2 class="center-align">${titleImg}</h2>
+            <figure class="flex-center">
+              <img class="responsive-img" src="${event.target.result}" alt="">
+            </figure>            
+          </div>
+        </div>`; 
+        
+        sendButtonImg.on('click', () => {
+          posts.append(templateImg);
+          $('.title-img-js').val('');
+          $('.delete-value-js').val('');
+          templateImg = '';
+        });
+      };
 
-  document.getElementById('filesImg').addEventListener('change', handleFileSelect, false);
-
-  $('#filesImg').on('change', handleFileSelect, false);
+      reader.readAsDataURL(myFile);
+    };
+  });
 });

@@ -10,38 +10,45 @@ $(document).ready(function () {
   var sendButton = $('.button-send-js');
   var titleCharacters = 10;
   var messageCharacters = 120;
+
   sendButton.on('click', function (event) {
     var tempTitle = titleMessage.val();
     var tempMessage = message.val();
 
     if (tempTitle.length <= titleCharacters && tempMessage.length <= messageCharacters) {
-      var template = '<div class="row">\n      <div class="col s10  offset-s1 z-depth-2 border ">\n      <h1 class="center-align">' + tempTitle + '</h1>\n      <p class="center-align">' + tempMessage + '</p>\n      </div>\n    </div>';
+      var template = '<div class="row">\n      <div class="col s10  offset-s1 z-depth-2 border ">\n      <h2 class="center-align">' + tempTitle + '</h2>\n      <p class="center-align">' + tempMessage + '</p>\n      </div>\n    </div>';
       posts.append(template);
       titleMessage.val('');
       message.val('');
     }
   });
 
-  // Funcionalidad cargar imagen:
-  var titleImg = $('.title-img-js');
+  // Funcionalidad cargar imagen:  
   var sendButtonImg = $('.button-send-img-js');
 
-  function handleFileSelect(evt) {
-    console.log('hiciste change');
+  $('#filesImg').change(function (event) {
+    var files = event.target.files; // FileList object
+    var myFile = files[0];
 
-    // var files = evt.target.files; // FileList object
+    if (!myFile.type.match('image.*')) {
+      alert('No es una imagen, seleccione una imagen');
+      console.log('no es imagen');
+    } else {
+      var reader = new FileReader();
 
-    // // files is a FileList of File objects. List some properties.
-    // var output = [];
-    // for (var i = 0, f; f = files[i]; i++) {
-    //   output.push('<li><strong>', escape(f.name), '</strong> (', f.type || 'n/a', ') - ',
-    //     f.size, ' bytes, last modified: ',
-    //     f.lastModifiedDate.toLocaleDateString(), '</li>');
-    // }
-    // document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
-  }
+      reader.onload = function (event) {
+        var titleImg = $('.title-img-js').val();
+        var templateImg = '\n        <div class="row">\n          <div class="col s10 offset-s1 z-depth-2 border">\n            <h2 class="center-align">' + titleImg + '</h2>\n            <figure class="flex-center">\n              <img class="responsive-img" src="' + event.target.result + '" alt="">\n            </figure>            \n          </div>\n        </div>';
 
-  document.getElementById('filesImg').addEventListener('change', handleFileSelect, false);
+        sendButtonImg.on('click', function () {
+          posts.append(templateImg);
+          $('.title-img-js').val('');
+          $('.delete-value-js').val('');
+          templateImg = '';
+        });
+      };
 
-  $('#filesImg').on('change', handleFileSelect, false);
+      reader.readAsDataURL(myFile);
+    };
+  });
 });
