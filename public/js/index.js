@@ -78,7 +78,7 @@ $(document).ready(function () {
       var _reader = new FileReader();
       _reader.onload = function (event) {
         var titleMultimedia = $('.title-multimedia-js').val();
-        var templateMultimedia = '\n        <div class="row">\n          <div class="col s10 offset-s1 z-depth-2 border">\n          <div class="row">\n          <div class="col s-12">\n            <h2 class="center-align">' + titleMultimedia + '</h2>\n            </div> \n            </div> \n            <div class="row flex-center">\n            <div class="col s-12">\n              <video class="video responsive-video" src="' + event.target.result + '" controls></video>\n              </div>\n            </div>        \n          </div>\n        </div>';
+        var templateMultimedia = '\n        <div class="row">\n          <div class="col s10 offset-s1 z-depth-2 border">\n          <div class="row ">\n          <div class="col s12">\n            <h2 class="center-align">' + titleMultimedia + '</h2>\n            </div> \n            </div> \n            <div class="row flex-center">\n            <div class="col s-12">\n              <video class="video responsive-video" src="' + event.target.result + '" controls></video>\n              </div>\n            </div>        \n          </div>\n        </div>';
 
         buttonMultimedia.on('click', function () {
           posts.append(templateMultimedia);

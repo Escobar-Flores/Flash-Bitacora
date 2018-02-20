@@ -100,8 +100,8 @@ $(document).ready(() => {
         let templateMultimedia = `
         <div class="row">
           <div class="col s10 offset-s1 z-depth-2 border">
-          <div class="row">
-          <div class="col s-12">
+          <div class="row ">
+          <div class="col s12">
             <h2 class="center-align">${titleMultimedia}</h2>
             </div> 
             </div> 
