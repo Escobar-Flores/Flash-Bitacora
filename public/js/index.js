@@ -52,6 +52,40 @@ $(document).ready(function () {
     };
   });
 
+  // Funcionalidad Multimedia : 
+
+  var filesMultimedia = $('#filesMultimedia');
+  var buttonMultimedia = $('.button-send-multimedia-js');
+  var prueba = $('.title-multimedia-js');
+
+  filesMultimedia.change(function (event) {
+    var myFile = event.target.files[0];
+    var typeOfContent = '';
+    if (myFile.type.match('audio.*')) {
+      var reader = new FileReader();
+      reader.onload = function (event) {
+        var titleMultimedia = $('.title-multimedia-js').val();
+        var templateMultimedia = '\n        <div class="row">\n          <div class="col s10 offset-s1 z-depth-2 border">\n            <h2 class="center-align">' + titleMultimedia + '</h2>\n            <div class="flex-center">\n              <audio src="' + event.target.result + '" controls></audio> \n            </div>        \n          </div>\n        </div>';
+
+        buttonMultimedia.on('click', function () {
+          posts.append(templateMultimedia);
+        });
+      };
+      reader.readAsDataURL(myFile);
+    } else if (myFile.type.match('video.*')) {
+      var _reader = new FileReader();
+      _reader.onload = function (event) {
+        var titleMultimedia = $('.title-multimedia-js').val();
+        var templateMultimedia = '\n        <div class="row">\n          <div class="col s10 offset-s1 z-depth-2 border">\n            <h2 class="center-align">' + titleMultimedia + '</h2>\n            <div class="flex-center">\n              <video class="video" src="' + event.target.result + '" controls></video>\n            </div>        \n          </div>\n        </div>';
+
+        buttonMultimedia.on('click', function () {
+          posts.append(templateMultimedia);
+        });
+      };
+      _reader.readAsDataURL(myFile);
+    }
+  });
+
   // Funcionalidad agregar evento: 
   $('.datepicker').pickadate({
     container: 'body',
@@ -80,7 +114,7 @@ $(document).ready(function () {
     var titleEvent = $('.title-event-js').val();
     var infoDate = $('.info-date-js').val();
 
-    var templateEvent = '\n    <div class="row">\n      <div class="col s10 offset-s1 z-depth-2 border">\n        <h2 class="center-align">' + titleEvent + '</h2>\n        <p class="center-align">' + infoDate + '</p>\n        <figure class="flex-center">\n          <img class="responsive-img" src="' + urlMap + '" alt="">\n        </figure>            \n      </div>\n    </div>';
+    var templateEvent = '\n      <div class="row">\n        <div class="col s10 offset-s1 z-depth-2 border">\n          <h2 class="center-align">' + titleEvent + '</h2>\n          <p class="center-align">' + infoDate + '</p>\n          <figure class="flex-center">\n            <img class="responsive-img" src="' + urlMap + '" alt="">\n          </figure>            \n        </div>\n      </div>';
     posts.append(templateEvent);
   };
 
@@ -100,38 +134,4 @@ $(document).ready(function () {
         break;
     }
   };
-
-  // Funcionalidad Multimedia : 
-
-  var filesMultimedia = $('#filesMultimedia');
-  var buttonMultimedia = $('.button-send-multimedia-js');
-  var prueba = $('.title-multimedia-js');
-
-  filesMultimedia.change(function (event) {
-    var myFile = event.target.files[0];
-    var typeOfContent = '';
-    if (myFile.type.match('audio.*')) {
-      var reader = new FileReader();
-      reader.onload = function (event) {
-        var titleMultimedia = $('.title-multimedia-js').val();
-        var templateMultimedia = '\n        <div class="row">\n          <div class="col s10 offset-s1 z-depth-2 border">\n            <h2 class="center-align">' + titleMultimedia + '</h2>\n            <div class="flex-center">\n              <audio src="' + event.target.result + '" controls></audio> \n              </div>        \n          </div>\n        </div>';
-
-        buttonMultimedia.on('click', function () {
-          posts.append(templateMultimedia);
-        });
-      };
-      reader.readAsDataURL(myFile);
-    } else if (myFile.type.match('video.*')) {
-      var _reader = new FileReader();
-      _reader.onload = function (event) {
-        var titleMultimedia = $('.title-multimedia-js').val();
-        var templateMultimedia = '\n        <div class="row">\n          <div class="col s10 offset-s1 z-depth-2 border">\n            <h2 class="center-align">' + titleMultimedia + '</h2>\n            <div class="flex-center">\n            <video class="video" src="' + event.target.result + '" controls></video>\n              </div>        \n          </div>\n        </div>';
-
-        buttonMultimedia.on('click', function () {
-          posts.append(templateMultimedia);
-        });
-      };
-      _reader.readAsDataURL(myFile);
-    }
-  });
 });
