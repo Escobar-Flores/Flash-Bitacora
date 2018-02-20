@@ -62,4 +62,62 @@ $(document).ready(() => {
       reader.readAsDataURL(myFile);
     };
   });
+
+  // Funcionalidad agregar evento: 
+  $('.datepicker').pickadate({
+    container: 'body', 
+    selectMonths: true, // Creates a dropdown to control month
+    selectYears: 15, // Creates a dropdown of 15 years to control year,
+    today: 'Today',
+    clear: 'Clear',
+    close: 'Ok',
+    closeOnSelect: false // Close upon selecting a date,
+  });
+
+  let sendButtonEvent = $('.button-send-event-js');
+
+  sendButtonEvent.on('click', () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showPosition, showError);
+    } else {
+      alert('Geolocation is not supported by this browser.');
+    }
+  });
+
+  function showPosition(position) {
+    let lat = position.coords.latitude;
+    let lon = position.coords.longitude;
+    let urlMap = `https://maps.googleapis.com/maps/api/staticmap?center=${lat},${lon}&zoom=18&size=400x400&markers=size:mid|color:red|label:A|${lat},${lon}&key=AIzaSyDOjvTC2nBfK8CXtIwDX5xn_9UEGnqGOFs`;
+    let titleEvent = $('.title-event-js').val();
+    let infoDate = $('.info-date-js').val();
+
+    let templateEvent = `
+    <div class="row">
+      <div class="col s10 offset-s1 z-depth-2 border">
+        <h2 class="center-align">${titleEvent}</h2>
+        <p class="center-align">${infoDate}</p>
+        <figure class="flex-center">
+          <img class="responsive-img" src="${urlMap}" alt="">
+        </figure>            
+      </div>
+    </div>`; 
+    posts.append(templateEvent);
+  };
+
+  function showError(error) {
+    switch (error.code) {
+    case error.PERMISSION_DENIED:
+      alert('User denied the request for Geolocation.');
+      break;
+    case error.POSITION_UNAVAILABLE:
+      alert('Location information is unavailable.');
+      break;
+    case error.TIMEOUT:
+      alert('The request to get user location timed out.');
+      break;
+    case error.UNKNOWN_ERROR:
+      alert('An unknown error occurred.');
+      break;
+    }
+  };  
 });

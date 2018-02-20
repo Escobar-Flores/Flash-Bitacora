@@ -51,4 +51,53 @@ $(document).ready(function () {
       reader.readAsDataURL(myFile);
     };
   });
+
+  // Funcionalidad agregar evento: 
+  $('.datepicker').pickadate({
+    container: 'body',
+    selectMonths: true, // Creates a dropdown to control month
+    selectYears: 15, // Creates a dropdown of 15 years to control year,
+    today: 'Today',
+    clear: 'Clear',
+    close: 'Ok',
+    closeOnSelect: false // Close upon selecting a date,
+  });
+
+  var sendButtonEvent = $('.button-send-event-js');
+
+  sendButtonEvent.on('click', function () {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showPosition, showError);
+    } else {
+      alert('Geolocation is not supported by this browser.');
+    }
+  });
+
+  function showPosition(position) {
+    var lat = position.coords.latitude;
+    var lon = position.coords.longitude;
+    var urlMap = 'https://maps.googleapis.com/maps/api/staticmap?center=' + lat + ',' + lon + '&zoom=18&size=400x400&markers=size:mid|color:red|label:A|' + lat + ',' + lon + '&key=AIzaSyDOjvTC2nBfK8CXtIwDX5xn_9UEGnqGOFs';
+    var titleEvent = $('.title-event-js').val();
+    var infoDate = $('.info-date-js').val();
+
+    var templateEvent = '\n    <div class="row">\n      <div class="col s10 offset-s1 z-depth-2 border">\n        <h2 class="center-align">' + titleEvent + '</h2>\n        <p class="center-align">' + infoDate + '</p>\n        <figure class="flex-center">\n          <img class="responsive-img" src="' + urlMap + '" alt="">\n        </figure>            \n      </div>\n    </div>';
+    posts.append(templateEvent);
+  };
+
+  function showError(error) {
+    switch (error.code) {
+      case error.PERMISSION_DENIED:
+        alert('User denied the request for Geolocation.');
+        break;
+      case error.POSITION_UNAVAILABLE:
+        alert('Location information is unavailable.');
+        break;
+      case error.TIMEOUT:
+        alert('The request to get user location timed out.');
+        break;
+      case error.UNKNOWN_ERROR:
+        alert('An unknown error occurred.');
+        break;
+    }
+  };
 });

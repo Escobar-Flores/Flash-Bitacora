@@ -32,7 +32,7 @@
           <ul>
             <li><a class="btn-floating red modal-trigger" href="#modal1"><i class="material-icons">message</i></a></li>
             <li><a class="btn-floating yellow darken-1 modal-trigger" href="#modal2"><i class="material-icons">collections</i></a></li>
-            <li><a class="btn-floating green"><i class="material-icons">date_range</i></a></li>
+            <li><a class="btn-floating green modal-trigger" href="#modal3"><i class="material-icons">date_range</i></a></li>
             <li><a class="btn-floating blue"><i class="material-icons">video_library</i></a></li>
           </ul>
         </div>
@@ -89,6 +89,30 @@
           <div class="modal-footer">
             <!--modal-action modal-close -->
             <button class="modal-action modal-close btn waves-effect waves-light button-send-img-js" type="submit" name="action">Publicar
+              <i class="material-icons right">send</i>
+            </button>
+          </div>
+        </div>
+        <!-- Modal Eventos -->
+        <div id="modal3" class="modal">
+          <div class="modal-content">
+            <h4 class="green-text">Añadir un evento</h4>
+            <form action="#">
+              <div class="">
+                <div class="input-field">
+                  <input id="input_text" type="text" data-length="10" class="title-event-js">
+                  <label for="input_text">Título</label>
+                </div>
+              </div>
+              <div>
+                <label for="date">¿En qué fecha se realizó el evento?</label>
+                <input type="text" class="datepicker info-date-js">
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <!--modal-action modal-close -->
+            <button class="modal-action modal-close btn waves-effect waves-light button-send-event-js" type="submit" name="action">Publicar
               <i class="material-icons right">send</i>
             </button>
           </div>
