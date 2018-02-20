@@ -8,10 +8,10 @@ $(document).ready(function() {
   let sendButton = $('.button-send-js');
   const titleCharacters = 10;
   const messageCharacters = 120;
-  sendButton.on('click', function(event) {
+  sendButton.on('click', (event) => {
     let tempTitle = titleMessage.val();
     let tempMessage = message.val();
-     
+
     if (tempTitle.length <= titleCharacters && tempMessage.length <= messageCharacters) {
       let template = `<div class="row">
       <div class="col s10  offset-s1 z-depth-2 border ">
